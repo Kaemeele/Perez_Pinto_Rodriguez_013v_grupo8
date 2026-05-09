@@ -1,10 +1,10 @@
 package BullyCars.Citas.Services;
 
+import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import BullyCars.Citas.Models.Cita;
 import BullyCars.Citas.Repositories.CitaRepository;
 
@@ -18,7 +18,19 @@ public class CitaService {
     }
 
     public Cita agendar(Cita cita) {
-        // Aquí podrías agregar validaciones más adelante
+        // 1. Validar que la fecha no sea pasada
+        if (cita.getFechaHora() == null || cita.getFechaHora().isBefore(LocalDateTime.now())) {
+            throw new RuntimeException("No se puede agendar en una fecha pasada.");
+        }
+
+        // 2. Validar disponibilidad
+        Optional<Cita> existente = repository.findByVehiculoIdAndFechaHora(
+            cita.getVehiculoId(), cita.getFechaHora());
+        
+        if (existente.isPresent()) {
+            throw new RuntimeException("El vehículo ya tiene una cita a esa hora.");
+        }
+
         return repository.save(cita);
     }
 }

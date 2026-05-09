@@ -20,5 +20,4 @@ public class Vehiculo {
     private String modelo;
     private int anio;
 
-    //holaaaaaaaaa
 }

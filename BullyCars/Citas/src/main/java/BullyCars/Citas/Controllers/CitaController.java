@@ -3,6 +3,7 @@ package BullyCars.Citas.Controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,6 +16,7 @@ import BullyCars.Citas.Services.CitaService;
 @RestController
 @RequestMapping("/api/citas")
 public class CitaController {
+
     @Autowired
     private CitaService service;
 
@@ -24,7 +26,13 @@ public class CitaController {
     }
 
     @PostMapping
-    public Cita crear(@RequestBody Cita cita) {
-        return service.agendar(cita);
+    public ResponseEntity<?> crear(@RequestBody Cita cita) {
+        try {
+            Cita nuevaCita = service.agendar(cita);
+            return ResponseEntity.ok(nuevaCita);
+        } catch (RuntimeException e) {
+            // Esto devuelve el error "El vehículo ya tiene una cita..." con código 400
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 }
