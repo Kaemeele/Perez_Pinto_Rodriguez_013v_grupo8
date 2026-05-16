@@ -1,7 +1,7 @@
-package BullyCars.Inventario.Services;
+package BullyCars.inventario.Services;
 
-import BullyCars.Inventario.Models.Repuesto;
-import BullyCars.Inventario.Repositories.RepuestoRepository;
+import BullyCars.inventario.Models.Repuesto;
+import BullyCars.inventario.Repositories.RepuestoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;

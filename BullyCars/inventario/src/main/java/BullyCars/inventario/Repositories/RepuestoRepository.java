@@ -1,6 +1,6 @@
-package BullyCars.Inventario.Repositories;
+package BullyCars.inventario.Repositories;
 
-import BullyCars.Inventario.Models.Repuesto;
+import BullyCars.inventario.Models.Repuesto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
