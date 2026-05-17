@@ -9,6 +9,13 @@ import BullyCars.Citas.Models.Cita;
 import BullyCars.Citas.Repositories.CitaRepository;
 
 @Service
+@FeignClient(name = "clientes-service", path = "/api/v1/clientes")
+public interface ClienteClient {
+
+    // Este método debe mapear exactamente el GetMapping por ID que tienes en tu ClienteController
+    @GetMapping("/{id}")
+    ResponseEntity<Object> obtenerClientePorId(@PathVariable("id") Long id);
+}
 public class CitaService {
     @Autowired
     private CitaRepository repository;
@@ -33,4 +40,5 @@ public class CitaService {
 
         return repository.save(cita);
     }
+
 }
