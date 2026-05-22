@@ -9,10 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@RestControllerAdvice // <- OBLIGATORIO: Captura los errores de todos los controladores de Citas
+@RestControllerAdvice 
 public class GlobalExceptionInterceptor {
 
-    // 1. Intercepta cuando una cita se agenda en una fecha inválida (Pasada)
     @ExceptionHandler(FechaPasadaException.class)
     public ResponseEntity<Map<String, Object>> manejarFechaPasada(FechaPasadaException ex) {
         Map<String, Object> respuesta = new HashMap<>();
@@ -24,7 +23,6 @@ public class GlobalExceptionInterceptor {
         return new ResponseEntity<>(respuesta, HttpStatus.BAD_REQUEST); // HTTP 400
     }
 
-    // 2. Intercepta cuando el vehículo ya tiene una hora tomada
     @ExceptionHandler(CitaYaProgramadaException.class)
     public ResponseEntity<Map<String, Object>> manejarCitaDuplicada(CitaYaProgramadaException ex) {
         Map<String, Object> respuesta = new HashMap<>();
@@ -36,7 +34,6 @@ public class GlobalExceptionInterceptor {
         return new ResponseEntity<>(respuesta, HttpStatus.CONFLICT); // HTTP 409
     }
 
-    // 3. Captura cualquier otro error genérico de validación o del sistema
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Map<String, Object>> manejarErroresGlobales(Exception ex) {
         Map<String, Object> respuesta = new HashMap<>();

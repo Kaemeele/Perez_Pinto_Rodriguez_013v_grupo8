@@ -31,7 +31,6 @@ public class CitaController {
             Cita nuevaCita = service.agendar(cita);
             return ResponseEntity.ok(nuevaCita);
         } catch (RuntimeException e) {
-            // Esto devuelve el error "El vehículo ya tiene una cita..." con código 400
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
