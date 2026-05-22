@@ -1,9 +1,10 @@
 package BullyCars.Clientes.Controllers;
 
-import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,20 +12,23 @@ import org.springframework.web.bind.annotation.RestController;
 
 import BullyCars.Clientes.Models.Cliente;
 import BullyCars.Clientes.Services.ClienteService;
+import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/clientes")
+@RequestMapping("/api/v1/clientes")
 public class ClienteController {
+
     @Autowired
     private ClienteService service;
 
-    @GetMapping
-    public List<Cliente> listar() {
-        return service.obtenerTodos();
+    @PostMapping("/registrar")
+    public ResponseEntity<Cliente> registrar(@Valid @RequestBody Cliente cliente) {
+        return new ResponseEntity<>(service.registrarCliente(cliente), HttpStatus.CREATED);
     }
 
-    @PostMapping
-    public Cliente crear(@RequestBody Cliente cliente) {
-        return service.guardar(cliente);
+    @PostMapping("/login")
+    public ResponseEntity<Map<String, String>> login(@RequestBody Map<String, String> credenciales) {
+        String token = service.login(credenciales.get("email"), credenciales.get("password"));
+        return ResponseEntity.ok(Map.of("token", token));
     }
-}
+}   
