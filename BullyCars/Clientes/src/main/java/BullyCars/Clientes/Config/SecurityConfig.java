@@ -14,16 +14,16 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder(); // Algoritmo de hashing obligatorio por rúbrica
+        return new BCryptPasswordEncoder(); 
     }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(csrf -> csrf.disable()) // Deshabilitamos CSRF para poder probar las APIs en Postman
+            .csrf(csrf -> csrf.disable()) 
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/api/v1/clientes/registrar", "/api/v1/clientes/login").permitAll() // Rutas públicas
-                .anyRequest().permitAll() // Permitimos el resto temporalmente para interactuar con tus otros microservicios
+                .requestMatchers("/api/v1/clientes/registrar", "/api/v1/clientes/login").permitAll() 
+                .anyRequest().permitAll()
             );
         return http.build();
     }

@@ -27,7 +27,7 @@ public class ClienteController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<Map<String, String>> login(@RequestBody Map<String, String> credenciales) {
+    public ResponseEntity<Map<String, String>> login(@Valid @RequestBody Map<String, String> credenciales) {
         String token = service.login(credenciales.get("email"), credenciales.get("password"));
         return ResponseEntity.ok(Map.of("token", token));
     }
