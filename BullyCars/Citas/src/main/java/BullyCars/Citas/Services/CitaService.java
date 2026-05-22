@@ -14,7 +14,7 @@ import BullyCars.Citas.Exceptions.*;
 public class CitaService {
 
     @Autowired private CitaRepository repository;
-    @Autowired private ClienteClient clienteClient;
+    @Autowired private ClienteClient ClienteProxy;
 
     public List<Cita> obtenerTodas() {
         return repository.findAll();

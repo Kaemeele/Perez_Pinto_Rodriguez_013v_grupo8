@@ -1,4 +1,4 @@
 package BullyCars.Citas.Config;
 
-public class SecurityConfig {
+public class ClienteProxy {
 }
