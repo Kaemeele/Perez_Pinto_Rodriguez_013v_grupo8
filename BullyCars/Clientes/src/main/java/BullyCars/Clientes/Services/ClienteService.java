@@ -6,7 +6,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import BullyCars.Clientes.Models.Cliente;
 import BullyCars.Clientes.Repositories.ClienteRepository;
-import BullyCars.Clientes.Security.JwtUtil; // <- IMPORTAR UTILERÍA
+import BullyCars.Clientes.Security.JwtUtil;
+import jakarta.annotation.PostConstruct;
 
 @Service
 public class ClienteService {
@@ -20,13 +21,26 @@ public class ClienteService {
     @Autowired
     private JwtUtil jwtUtil;
 
+    @PostConstruct
+    public void initAdmin() {
+        if (repository.count() == 0) {
+            Cliente admin = new Cliente();
+            admin.setNombre("Administrador Maestro");
+            admin.setEmail("admin@bullycars.cl");
+            admin.setPassword(passwordEncoder.encode("qwerty123"));
+            admin.setRol("ROLE_ADMIN"); 
+            repository.save(admin);
+            System.out.println(">>> Administrador inicial creado correctamente.");
+        }
+    }
+
     public Cliente registrarCliente(Cliente cliente) {
-    String claveEncriptada = passwordEncoder.encode(cliente.getPassword());
-    cliente.setPassword(claveEncriptada);
-    cliente.setRol("ROLE_CLIENTE");
-    
-    return repository.save(cliente);
-}
+        String claveEncriptada = passwordEncoder.encode(cliente.getPassword());
+        cliente.setPassword(claveEncriptada);
+        cliente.setRol("ROLE_CLIENTE");
+        
+        return repository.save(cliente);
+    }
 
     public String login(String email, String password) {
         Optional<Cliente> clienteOpt = repository.findAll().stream()
@@ -35,9 +49,7 @@ public class ClienteService {
 
         if (clienteOpt.isPresent()) {
             Cliente cliente = clienteOpt.get();
-            // Compara la clave enviada contra el Hash Bcrypt guardado en la BD
             if (passwordEncoder.matches(password, cliente.getPassword())) {
-                // Emitimos el token JWT real firmado criptográficamente
                 return jwtUtil.generarToken(cliente.getEmail(), cliente.getRol());
             }
         }
