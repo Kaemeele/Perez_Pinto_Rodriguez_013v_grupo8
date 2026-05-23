@@ -1,8 +1,11 @@
 package BullyCars.Notificaciones.Services;
 
-public class NotificacionService {
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import BullyCars.Notificaciones.Models.Notificacion;
+import BullyCars.Notificaciones.Repositories.NotificacionRepository;
 
-}
 @Service
 public class NotificacionService {
     @Autowired private NotificacionRepository repo;

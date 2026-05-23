@@ -1,13 +1,25 @@
 package BullyCars.Proveedores.Controllers;
 
-public class ProveedorController {
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import BullyCars.Proveedores.Models.Proveedor;
+import BullyCars.Proveedores.Services.ProveedorService;
 
-}
-@RestController @RequestMapping("/api/v1/proveedores")
+@RestController
+@RequestMapping("/api/v1/proveedores")
 public class ProveedorController {
     @Autowired private ProveedorService service;
-    @GetMapping public ResponseEntity<List<Proveedor>> listar() { return ResponseEntity.ok(service.listar()); }
-    @PostMapping public ResponseEntity<Proveedor> crear(@RequestBody Proveedor p) { 
+
+    @GetMapping
+    public ResponseEntity<List<Proveedor>> listar() { 
+        return ResponseEntity.ok(service.listarTodo()); 
+    }
+
+    @PostMapping
+    public ResponseEntity<Proveedor> crear(@RequestBody Proveedor p) { 
         return new ResponseEntity<>(service.guardar(p), HttpStatus.CREATED); 
     }
 }

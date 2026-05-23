@@ -1,4 +1,4 @@
-package BullyCars.Proveedores;
+package BullyCars.Facturacion;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,10 +7,10 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 @SpringBootApplication
 @EnableDiscoveryClient
 
-public class ProveedoresApplication {
+public class FacturacionApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ProveedoresApplication.class, args);
+		SpringApplication.run(FacturacionApplication.class, args);
 	}
 
 }

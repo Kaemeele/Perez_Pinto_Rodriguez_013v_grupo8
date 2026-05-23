@@ -1,0 +1,14 @@
+package BullyCars.Facturacion.Services;
+
+import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import BullyCars.Facturacion.Models.Factura;
+import BullyCars.Facturacion.Repositories.FacturaRepository;
+
+@Service
+public class FacturacionService {
+    @Autowired private FacturaRepository repo;
+    public Factura generar(Factura f) { return repo.save(f); }
+    public List<Factura> historial() { return repo.findAll(); }
+}
