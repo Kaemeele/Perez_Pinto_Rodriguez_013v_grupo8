@@ -1,0 +1,297 @@
+
+services:
+  # -------------------------------------------------------------
+  # Base de Datos (MySQL)
+  # -------------------------------------------------------------
+  db:
+    image: mysql:8.0
+    container_name: bullycars-mysql
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ""
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./init-db:/docker-entrypoint-initdb.d
+    networks:
+      - bullycars-net
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # -------------------------------------------------------------
+  # Infraestructura de Mensajería (Kafka + Zookeeper)
+  # -------------------------------------------------------------
+  zookeeper:
+    image: confluentinc/cp-zookeeper:7.5.0
+    container_name: bullycars-zookeeper
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+      ZOOKEEPER_TICK_TIME: 2000
+    networks:
+      - bullycars-net
+
+  kafka:
+    image: confluentinc/cp-kafka:7.5.0
+    container_name: bullycars-kafka
+    ports:
+      - "9092:9092"
+    depends_on:
+      - zookeeper
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: 'zookeeper:2181'
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,PLAINTEXT_INTERNAL:PLAINTEXT
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://localhost:9092,PLAINTEXT_INTERNAL://kafka:29092
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_TRANSACTION_STATE_LOG_MIN_ISR: 1
+      KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
+    networks:
+      - bullycars-net
+
+  # -------------------------------------------------------------
+  # Infraestructura Spring Cloud (Eureka Server)
+  # -------------------------------------------------------------
+  eureka-server:
+    build:
+      context: ./BullyCars/eureka-server
+    container_name: bullycars-eureka-server
+    ports:
+      - "8761:8761"
+    depends_on:
+      db:
+        condition: service_healthy
+    networks:
+      - bullycars-net
+
+  # -------------------------------------------------------------
+  # API Gateway
+  # -------------------------------------------------------------
+  api-gateway:
+    build:
+      context: ./BullyCars/API-Gateway
+    container_name: bullycars-api-gateway
+    ports:
+      - "8081:8081"
+    environment:
+      EUREKA_SERVER_URL: http://eureka-server:8761/eureka/
+    depends_on:
+      - eureka-server
+    networks:
+      - bullycars-net
+
+  # -------------------------------------------------------------
+  # Microservicios de Negocio (10 Servicios)
+  # -------------------------------------------------------------
+  clientes-service:
+    build:
+      context: ./BullyCars/Clientes
+    container_name: bullycars-clientes-service
+    ports:
+      - "8082:8082"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/db_clientes?createDatabaseIfNotExist=true&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: ""
+      EUREKA_SERVER_URL: http://eureka-server:8761/eureka/
+      KAFKA_SERVERS: kafka:29092
+    depends_on:
+      db:
+        condition: service_healthy
+      eureka-server:
+        condition: service_started
+    networks:
+      - bullycars-net
+
+  vehiculos-service:
+    build:
+      context: ./BullyCars/Vehiculos
+    container_name: bullycars-vehiculos-service
+    ports:
+      - "8083:8083"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/db_vehiculos?createDatabaseIfNotExist=true&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: ""
+      EUREKA_SERVER_URL: http://eureka-server:8761/eureka/
+      KAFKA_SERVERS: kafka:29092
+    depends_on:
+      db:
+        condition: service_healthy
+      eureka-server:
+        condition: service_started
+    networks:
+      - bullycars-net
+
+  citas-service:
+    build:
+      context: ./BullyCars/Citas
+    container_name: bullycars-citas-service
+    ports:
+      - "8084:8084"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/db_citas?createDatabaseIfNotExist=true&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: ""
+      EUREKA_SERVER_URL: http://eureka-server:8761/eureka/
+      KAFKA_SERVERS: kafka:29092
+    depends_on:
+      db:
+        condition: service_healthy
+      eureka-server:
+        condition: service_started
+    networks:
+      - bullycars-net
+
+  inventario-service:
+    build:
+      context: ./BullyCars/Inventario
+    container_name: bullycars-inventario-service
+    ports:
+      - "8085:8085"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/db_inventario?createDatabaseIfNotExist=true&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: ""
+      EUREKA_SERVER_URL: http://eureka-server:8761/eureka/
+      KAFKA_SERVERS: kafka:29092
+    depends_on:
+      db:
+        condition: service_healthy
+      eureka-server:
+        condition: service_started
+    networks:
+      - bullycars-net
+
+  reparaciones-service:
+    build:
+      context: ./BullyCars/Reparaciones
+    container_name: bullycars-reparaciones-service
+    ports:
+      - "8086:8086"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/db_reparaciones?createDatabaseIfNotExist=true&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: ""
+      EUREKA_SERVER_URL: http://eureka-server:8761/eureka/
+      KAFKA_SERVERS: kafka:29092
+    depends_on:
+      db:
+        condition: service_healthy
+      eureka-server:
+        condition: service_started
+    networks:
+      - bullycars-net
+
+  estetica-service:
+    build:
+      context: ./BullyCars/EsteticaAutomotriz
+    container_name: bullycars-estetica-service
+    ports:
+      - "8087:8087"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/db_estetica?createDatabaseIfNotExist=true&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: ""
+      EUREKA_SERVER_URL: http://eureka-server:8761/eureka/
+      KAFKA_SERVERS: kafka:29092
+    depends_on:
+      db:
+        condition: service_healthy
+      eureka-server:
+        condition: service_started
+    networks:
+      - bullycars-net
+
+  facturacion-service:
+    build:
+      context: ./BullyCars/Facturacion
+    container_name: bullycars-facturacion-service
+    ports:
+      - "8088:8088"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/db_facturacion?createDatabaseIfNotExist=true&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: ""
+      EUREKA_SERVER_URL: http://eureka-server:8761/eureka/
+      KAFKA_SERVERS: kafka:29092
+    depends_on:
+      db:
+        condition: service_healthy
+      eureka-server:
+        condition: service_started
+    networks:
+      - bullycars-net
+
+  proveedores-service:
+    build:
+      context: ./BullyCars/Proveedores
+    container_name: bullycars-proveedores-service
+    ports:
+      - "8089:8089"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/db_proveedores?createDatabaseIfNotExist=true&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: ""
+      EUREKA_SERVER_URL: http://eureka-server:8761/eureka/
+      KAFKA_SERVERS: kafka:29092
+    depends_on:
+      db:
+        condition: service_healthy
+      eureka-server:
+        condition: service_started
+    networks:
+      - bullycars-net
+
+  notificaciones-service:
+    build:
+      context: ./BullyCars/Notificaciones
+    container_name: bullycars-notificaciones-service
+    ports:
+      - "8090:8090"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/db_notificaciones?createDatabaseIfNotExist=true&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: ""
+      EUREKA_SERVER_URL: http://eureka-server:8761/eureka/
+      KAFKA_SERVERS: kafka:29092
+    depends_on:
+      db:
+        condition: service_healthy
+      eureka-server:
+        condition: service_started
+    networks:
+      - bullycars-net
+
+  resenas-service:
+    build:
+      context: ./BullyCars/Resenas
+    container_name: bullycars-resenas-service
+    ports:
+      - "8091:8091"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/db_resenas?createDatabaseIfNotExist=true&serverTimezone=UTC
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: ""
+      EUREKA_SERVER_URL: http://eureka-server:8761/eureka/
+      KAFKA_SERVERS: kafka:29092
+    depends_on:
+      db:
+        condition: service_healthy
+      eureka-server:
+        condition: service_started
+    networks:
+      - bullycars-net
+
+# -------------------------------------------------------------
+# Volúmenes y Redes
+# -------------------------------------------------------------
+volumes:
+  mysql_data:
+
+networks:
+  bullycars-net:
+    driver: bridge
