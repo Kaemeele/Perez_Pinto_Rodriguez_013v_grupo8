@@ -1,0 +1,66 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: API-Gateway
+  cloud:
+    gateway:
+      server:
+        webflux:
+          discovery:
+            locator:
+              enabled: true
+          routes:
+            - id: clientes-service
+              uri: lb://CLIENTES-SERVICE
+              predicates:
+                - Path=/api/v1/clientes/**
+            - id: citas-service
+              uri: lb://CITAS-SERVICE
+              predicates:
+                - Path=/api/v1/citas/**
+            - id: vehiculos-service
+              uri: lb://VEHICULOS-SERVICE
+              predicates:
+                - Path=/api/v1/vehiculos/**
+            - id: inventario-service
+              uri: lb://INVENTARIO-SERVICE
+              predicates:
+                - Path=/api/v1/inventario/**
+            - id: reparaciones-service
+              uri: lb://REPARACIONES-SERVICE
+              predicates:
+                - Path=/api/v1/reparaciones/**
+            - id: estetica-service
+              uri: lb://ESTETICA-SERVICE
+              predicates:
+                - Path=/api/v1/estetica/**
+            - id: facturacion-service
+              uri: lb://FACTURACION-SERVICE
+              predicates:
+                - Path=/api/v1/facturacion/**
+            - id: proveedores-service
+              uri: lb://PROVEEDORES-SERVICE
+              predicates:
+                - Path=/api/v1/proveedores/**
+            - id: notificaciones-service
+              uri: lb://NOTIFICACIONES-SERVICE
+              predicates:
+                - Path=/api/v1/notificaciones/**
+            - id: resenas-service
+              uri: lb://RESENAS-SERVICE
+              predicates:
+                - Path=/api/v1/resenas/**
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_SERVER_URL:http://localhost:8761/eureka/}
+
+logging:
+  level:
+    org.springframework.cloud.gateway: TRACE
+    org.springframework.web.reactive.function.client: TRACE
+    org.springframework.web.server.adapter.HttpWebHandlerAdapter: TRACE
+    org.springframework.web.server: TRACE
