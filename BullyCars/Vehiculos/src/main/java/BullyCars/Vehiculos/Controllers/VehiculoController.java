@@ -13,7 +13,7 @@ import BullyCars.Vehiculos.Models.Vehiculo;
 import BullyCars.Vehiculos.Services.VehiculoService;
 
 @RestController
-@RequestMapping("/api/vehiculos")
+@RequestMapping("/api/v1/vehiculos")
 public class VehiculoController {
     @Autowired
     private VehiculoService service;

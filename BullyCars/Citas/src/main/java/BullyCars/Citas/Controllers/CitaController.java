@@ -14,7 +14,7 @@ import BullyCars.Citas.Models.Cita;
 import BullyCars.Citas.Services.CitaService;
 
 @RestController
-@RequestMapping("/api/citas")
+@RequestMapping("/api/v1/citas")
 public class CitaController {
 
     @Autowired
