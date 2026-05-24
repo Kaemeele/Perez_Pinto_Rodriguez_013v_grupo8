@@ -29,6 +29,7 @@ public class Cliente {
     private String email;
 
     @NotBlank(message = "La contraseña es obligatoria")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
