@@ -12,23 +12,28 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
+/**
+ * Entidad de persistencia (Modelo) que representa la tabla y estructura de datos en la base de datos.
+ */
 @Entity
 @Table(name = "clientes")
 @Data
 public class Cliente {
+    // Clave primaria identificadora de la entidad
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "El nombre no puede estar vacío")
+    @NotBlank(message = "El nombre no puede estar vacio")
     private String nombre;
 
     @Column(unique = true)
-    @Email(message = "Debe ingresar un formato de correo válido")
+    @Email(message = "Debe ingresar un formato de correo valido")
     @NotBlank(message = "El correo es obligatorio")
     private String email;
 
-    @NotBlank(message = "La contraseña es obligatoria")
+    @NotBlank(message = "La contrasena es obligatoria")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)

@@ -3,8 +3,12 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
+/**
+ * Entidad de persistencia (Modelo) que representa la tabla y estructura de datos en la base de datos.
+ */
 @Entity @Table(name = "servicios_estetica") @Data
 public class ServicioEstetica {
+    // Clave primaria identificadora de la entidad
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotBlank(message = "El nombre es obligatorio")

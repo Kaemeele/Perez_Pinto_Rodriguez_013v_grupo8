@@ -4,6 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients; // <- IMPORTAR
 
+/**
+ * Clase de entrada principal para arrancar el microservicio utilizando Spring Boot.
+ */
 @SpringBootApplication
 @EnableFeignClients
 public class CitasApplication {

@@ -9,6 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+/**
+ * Interceptor global de excepciones para centralizar y unificar las respuestas de error.
+ */
 @RestControllerAdvice
 public class GlobalVehiculosExceptionInterceptor {
 
@@ -17,7 +20,7 @@ public class GlobalVehiculosExceptionInterceptor {
         Map<String, Object> error = new HashMap<>();
         error.put("timestamp", LocalDateTime.now());
         error.put("status", HttpStatus.NOT_FOUND.value());
-        error.put("error", "Vehículo No Encontrado");
+        error.put("error", "Vehiculo No Encontrado");
         error.put("message", ex.getMessage());
         return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
     }
