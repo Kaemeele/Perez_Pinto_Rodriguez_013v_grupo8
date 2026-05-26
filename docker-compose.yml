@@ -7,7 +7,7 @@ services:
     image: mysql:8.0
     container_name: bullycars-mysql
     ports:
-      - "3306:3306"
+      - "3310:3306"
     environment:
       MYSQL_ROOT_PASSWORD: ""
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
@@ -75,7 +75,7 @@ services:
       context: ./BullyCars/API-Gateway
     container_name: bullycars-api-gateway
     ports:
-      - "8081:8081"
+      - "9081:8081"
     environment:
       EUREKA_SERVER_URL: http://eureka-server:8761/eureka/
     depends_on:
@@ -91,7 +91,7 @@ services:
       context: ./BullyCars/Clientes
     container_name: bullycars-clientes-service
     ports:
-      - "8082:8082"
+      - "9082:8082"
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/db_clientes?createDatabaseIfNotExist=true&serverTimezone=UTC
       SPRING_DATASOURCE_USERNAME: root
@@ -111,7 +111,7 @@ services:
       context: ./BullyCars/Vehiculos
     container_name: bullycars-vehiculos-service
     ports:
-      - "8083:8083"
+      - "9083:8083"
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/db_vehiculos?createDatabaseIfNotExist=true&serverTimezone=UTC
       SPRING_DATASOURCE_USERNAME: root
@@ -131,7 +131,7 @@ services:
       context: ./BullyCars/Citas
     container_name: bullycars-citas-service
     ports:
-      - "8084:8084"
+      - "9084:8084"
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/db_citas?createDatabaseIfNotExist=true&serverTimezone=UTC
       SPRING_DATASOURCE_USERNAME: root
@@ -151,7 +151,7 @@ services:
       context: ./BullyCars/Inventario
     container_name: bullycars-inventario-service
     ports:
-      - "8085:8085"
+      - "9085:8085"
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/db_inventario?createDatabaseIfNotExist=true&serverTimezone=UTC
       SPRING_DATASOURCE_USERNAME: root
@@ -171,7 +171,7 @@ services:
       context: ./BullyCars/Reparaciones
     container_name: bullycars-reparaciones-service
     ports:
-      - "8086:8086"
+      - "9086:8086"
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/db_reparaciones?createDatabaseIfNotExist=true&serverTimezone=UTC
       SPRING_DATASOURCE_USERNAME: root
@@ -191,7 +191,7 @@ services:
       context: ./BullyCars/EsteticaAutomotriz
     container_name: bullycars-estetica-service
     ports:
-      - "8087:8087"
+      - "9087:8087"
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/db_estetica?createDatabaseIfNotExist=true&serverTimezone=UTC
       SPRING_DATASOURCE_USERNAME: root
@@ -211,7 +211,7 @@ services:
       context: ./BullyCars/Facturacion
     container_name: bullycars-facturacion-service
     ports:
-      - "8088:8088"
+      - "9088:8088"
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/db_facturacion?createDatabaseIfNotExist=true&serverTimezone=UTC
       SPRING_DATASOURCE_USERNAME: root
@@ -231,7 +231,7 @@ services:
       context: ./BullyCars/Proveedores
     container_name: bullycars-proveedores-service
     ports:
-      - "8089:8089"
+      - "9089:8089"
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/db_proveedores?createDatabaseIfNotExist=true&serverTimezone=UTC
       SPRING_DATASOURCE_USERNAME: root
@@ -251,7 +251,7 @@ services:
       context: ./BullyCars/Notificaciones
     container_name: bullycars-notificaciones-service
     ports:
-      - "8090:8090"
+      - "9090:8090"
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/db_notificaciones?createDatabaseIfNotExist=true&serverTimezone=UTC
       SPRING_DATASOURCE_USERNAME: root
@@ -271,7 +271,7 @@ services:
       context: ./BullyCars/Resenas
     container_name: bullycars-resenas-service
     ports:
-      - "8091:8091"
+      - "9091:8091"
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/db_resenas?createDatabaseIfNotExist=true&serverTimezone=UTC
       SPRING_DATASOURCE_USERNAME: root
