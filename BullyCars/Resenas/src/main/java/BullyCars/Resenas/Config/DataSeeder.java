@@ -21,6 +21,12 @@ public class DataSeeder implements CommandLineRunner {
             resena.setCalificacion(5);
             resena.setComentario("Excelente servicio, muy rápidos, prolijos y transparentes en la cotización.");
             resenaRepository.save(resena);
+
+            Resena resena2 = new Resena();
+            resena2.setClienteId(2L);
+            resena2.setCalificacion(5);
+            resena2.setComentario("El Stealth Matte Wrap quedó espectacular, la atención al detalle y las terminaciones son perfectas. Totalmente recomendado.");
+            resenaRepository.save(resena2);
         }
     }
 }

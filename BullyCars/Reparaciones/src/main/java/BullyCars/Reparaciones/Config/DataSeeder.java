@@ -22,6 +22,13 @@ public class DataSeeder implements CommandLineRunner {
             ot.setVehiculoId(1L);
             ot.setMecanicoAsignado("Carlos Mecánico");
             ordenTrabajoRepository.save(ot);
+
+            OrdenTrabajo ot2 = new OrdenTrabajo();
+            ot2.setDescripcion("Instalación de Suspensión Ajustable Coilover Tein");
+            ot2.setEstado("En Proceso");
+            ot2.setVehiculoId(2L);
+            ot2.setMecanicoAsignado("Sebastián Tuner");
+            ordenTrabajoRepository.save(ot2);
         }
     }
 }

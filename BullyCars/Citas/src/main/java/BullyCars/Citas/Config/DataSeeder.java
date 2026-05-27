@@ -24,6 +24,13 @@ public class DataSeeder implements CommandLineRunner {
             cita.setClienteId(1L);
             cita.setVehiculoId(1L);
             citaRepository.save(cita);
+
+            Cita cita2 = new Cita();
+            cita2.setFechaHora(LocalDateTime.of(2026, 6, 15, 14, 30));
+            cita2.setDescripcionProblema("Instalación de Stealth Matte Wrap Premium");
+            cita2.setClienteId(2L);
+            cita2.setVehiculoId(2L);
+            citaRepository.save(cita2);
         }
     }
 }

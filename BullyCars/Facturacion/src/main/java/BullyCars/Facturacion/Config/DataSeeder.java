@@ -20,6 +20,11 @@ public class DataSeeder implements CommandLineRunner {
             factura.setCitaId(1L);
             factura.setTotal(40000.00);
             facturaRepository.save(factura);
+
+            Factura factura2 = new Factura();
+            factura2.setCitaId(2L);
+            factura2.setTotal(325000.00);
+            facturaRepository.save(factura2);
         }
     }
 }

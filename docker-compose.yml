@@ -1,8 +1,5 @@
 
 services:
-  # -------------------------------------------------------------
-  # Base de Datos (MySQL)
-  # -------------------------------------------------------------
   db:
     image: mysql:8.0
     container_name: bullycars-mysql
@@ -22,9 +19,6 @@ services:
       timeout: 5s
       retries: 5
 
-  # -------------------------------------------------------------
-  # Infraestructura de Mensajería (Kafka + Zookeeper)
-  # -------------------------------------------------------------
   zookeeper:
     image: confluentinc/cp-zookeeper:7.5.0
     container_name: bullycars-zookeeper
@@ -52,9 +46,6 @@ services:
     networks:
       - bullycars-net
 
-  # -------------------------------------------------------------
-  # Infraestructura Spring Cloud (Eureka Server)
-  # -------------------------------------------------------------
   eureka-server:
     build:
       context: ./BullyCars/eureka-server
@@ -67,9 +58,6 @@ services:
     networks:
       - bullycars-net
 
-  # -------------------------------------------------------------
-  # API Gateway
-  # -------------------------------------------------------------
   api-gateway:
     build:
       context: ./BullyCars/API-Gateway
@@ -83,9 +71,6 @@ services:
     networks:
       - bullycars-net
 
-  # -------------------------------------------------------------
-  # Microservicios de Negocio (10 Servicios)
-  # -------------------------------------------------------------
   clientes-service:
     build:
       context: ./BullyCars/Clientes
@@ -286,9 +271,6 @@ services:
     networks:
       - bullycars-net
 
-# -------------------------------------------------------------
-# Volúmenes y Redes
-# -------------------------------------------------------------
 volumes:
   mysql_data:
 

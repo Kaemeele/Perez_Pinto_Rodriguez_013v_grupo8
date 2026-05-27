@@ -16,35 +16,25 @@ import BullyCars.Reparaciones.Models.OrdenTrabajo;
 import BullyCars.Reparaciones.Services.ReparacionService;
 import jakarta.validation.Valid;
 
-/**
- * Controlador REST que expone los endpoints y maneja las peticiones HTTP de este microservicio.
- */
 @RestController
 @RequestMapping("/api/v1/reparaciones")
 public class ReparacionController {
 
-    // Inyeccion automatica de dependencias de Spring
     @Autowired
     private ReparacionService service;
 
-    // Listar todas las ordenes de trabajo
-    // Endpoint para recuperar informacion (Solicitud GET)
     @GetMapping
     public ResponseEntity<List<OrdenTrabajo>> listarTodas() {
         List<OrdenTrabajo> ordenes = service.listarOrdenes();
-        return ResponseEntity.ok(ordenes); // Retorna 200 OK
+        return ResponseEntity.ok(ordenes); 
     }
 
-    // Crear una nueva orden de reparacion
-    // Endpoint para registrar o guardar nueva informacion (Solicitud POST)
     @PostMapping
     public ResponseEntity<OrdenTrabajo> crearOrden(@Valid @RequestBody OrdenTrabajo orden) {
         OrdenTrabajo nuevaOrden = service.crearOrden(orden);
-        return new ResponseEntity<>(nuevaOrden, HttpStatus.CREATED); // Retorna 201 Created
+        return new ResponseEntity<>(nuevaOrden, HttpStatus.CREATED); 
     }
 
-    // Obtener una orden especifica por ID
-    // Endpoint para recuperar informacion (Solicitud GET)
     @GetMapping("/{id}")
     public ResponseEntity<OrdenTrabajo> obtenerPorId(@PathVariable Long id) {
         return service.listarOrdenes().stream()

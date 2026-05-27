@@ -22,6 +22,13 @@ public class DataSeeder implements CommandLineRunner {
             vehiculo.setModelo("Yaris");
             vehiculo.setAnio(2022);
             vehiculoRepository.save(vehiculo);
+
+            Vehiculo vehiculo2 = new Vehiculo();
+            vehiculo2.setPatente("XY78ZW");
+            vehiculo2.setMarca("Ford");
+            vehiculo2.setModelo("Mustang");
+            vehiculo2.setAnio(2024);
+            vehiculoRepository.save(vehiculo2);
         }
     }
 }

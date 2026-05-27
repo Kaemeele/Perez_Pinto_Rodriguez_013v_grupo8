@@ -9,9 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-/**
- * Interceptor global de excepciones para centralizar y unificar las respuestas de error.
- */
 @RestControllerAdvice
 public class GlobalVehiculosExceptionInterceptor {
 

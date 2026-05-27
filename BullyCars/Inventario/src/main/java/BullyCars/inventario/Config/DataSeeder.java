@@ -21,6 +21,12 @@ public class DataSeeder implements CommandLineRunner {
             repuesto.setStock(50);
             repuesto.setPrecio(25000.00);
             repuestoRepository.save(repuesto);
+
+            Repuesto repuesto2 = new Repuesto();
+            repuesto2.setNombre("Filtro de Aire K&N Alto Flujo");
+            repuesto2.setStock(15);
+            repuesto2.setPrecio(45000.00);
+            repuestoRepository.save(repuesto2);
         }
     }
 }

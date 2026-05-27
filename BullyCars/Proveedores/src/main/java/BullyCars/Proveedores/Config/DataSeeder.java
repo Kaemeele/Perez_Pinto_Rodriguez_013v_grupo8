@@ -21,6 +21,12 @@ public class DataSeeder implements CommandLineRunner {
             proveedor.setContacto("ventas@autoparts.cl");
             proveedor.setCategoriaInsumos("Repuestos Generales");
             proveedorRepository.save(proveedor);
+
+            Proveedor proveedor2 = new Proveedor();
+            proveedor2.setNombreEmpresa("WrapMasters International");
+            proveedor2.setContacto("soporte@wrapmasters.com");
+            proveedor2.setCategoriaInsumos("Vinilos & Wraps Premium");
+            proveedorRepository.save(proveedor2);
         }
     }
 }

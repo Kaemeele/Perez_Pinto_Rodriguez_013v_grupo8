@@ -8,9 +8,6 @@ import org.springframework.stereotype.Repository;
 
 import BullyCars.Citas.Models.Cita;
 
-/**
- * Repositorio JPA para interactuar con la base de datos y realizar operaciones CRUD.
- */
 @Repository
 public interface CitaRepository extends JpaRepository<Cita, Long> {
 Optional<Cita> findByVehiculoIdAndFechaHora(Long vehiculoId, LocalDateTime fechaHora);}
