@@ -34,3 +34,19 @@ public class DataSeeder implements CommandLineRunner {
         }
     }
 }
+
+// GET (Listar todas)
+// http://localhost:9081/api/v1/citas
+
+// GET (Obtener por ID)
+// http://localhost:9081/api/v1/citas/1
+
+// POST (Crear Cita)
+// http://localhost:9081/api/v1/citas
+// {
+//   "fechaHora": "2026-07-10T11:00:00",
+//   "descripcionProblema": "Alineación, balanceo y cambio de amortiguadores delanteros",
+//   "clienteId": 1,
+//   "vehiculoId": 1
+// }
+

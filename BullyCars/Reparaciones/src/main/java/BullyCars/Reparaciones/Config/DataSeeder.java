@@ -32,3 +32,19 @@ public class DataSeeder implements CommandLineRunner {
         }
     }
 }
+
+// GET (Listar Órdenes de Trabajo)
+// http://localhost:9081/api/v1/reparaciones
+
+// GET (Obtener por ID)
+// http://localhost:9081/api/v1/reparaciones/1
+
+// POST (Crear Orden de Trabajo)
+// http://localhost:9081/api/v1/reparaciones
+// {
+//   "descripcion": "Ajuste de frenos traseros y purgado de líquido",
+//   "estado": "Pendiente",
+//   "vehiculoId": 1,
+//   "mecanicoAsignado": "Carlos Mecánico"
+// }
+

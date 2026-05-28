@@ -28,3 +28,17 @@ public class DataSeeder implements CommandLineRunner {
         }
     }
 }
+
+// GET (Listar Facturas)
+// http://localhost:9081/api/v1/facturacion
+
+// GET (Obtener por ID)
+// http://localhost:9081/api/v1/facturacion/1
+
+// POST (Crear Factura)
+// http://localhost:9081/api/v1/facturacion
+// {
+//   "citaId": 1,
+//   "total": 55000.00
+// }
+

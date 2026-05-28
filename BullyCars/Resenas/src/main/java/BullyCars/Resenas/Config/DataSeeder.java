@@ -30,3 +30,18 @@ public class DataSeeder implements CommandLineRunner {
         }
     }
 }
+
+// GET (Listar Reseñas)
+// http://localhost:9081/api/v1/resenas
+
+// GET (Obtener por ID)
+// http://localhost:9081/api/v1/resenas/1
+
+// POST (Crear Reseña)
+// http://localhost:9081/api/v1/resenas
+// {
+//   "clienteId": 1,
+//   "calificacion": 4,
+//   "comentario": "El servicio fue excelente, pero tardaron media hora más de lo programado."
+// }
+

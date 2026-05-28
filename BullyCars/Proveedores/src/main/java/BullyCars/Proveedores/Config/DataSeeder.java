@@ -30,3 +30,18 @@ public class DataSeeder implements CommandLineRunner {
         }
     }
 }
+
+// GET (Listar Proveedores)
+// http://localhost:9081/api/v1/proveedores
+
+// GET (Obtener por ID)
+// http://localhost:9081/api/v1/proveedores/1
+
+// POST (Crear Proveedor)
+// http://localhost:9081/api/v1/proveedores
+// {
+//   "nombreEmpresa": "TuningParts SpA",
+//   "contacto": "contacto@tuningparts.cl",
+//   "categoriaInsumos": "Accesorios Deportivos y Tuning"
+// }
+

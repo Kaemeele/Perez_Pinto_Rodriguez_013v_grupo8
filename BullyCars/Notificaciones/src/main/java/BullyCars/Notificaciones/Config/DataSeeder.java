@@ -28,3 +28,17 @@ public class DataSeeder implements CommandLineRunner {
         }
     }
 }
+
+// GET (Listar Notificaciones)
+// http://localhost:9081/api/v1/notificaciones
+
+// GET (Obtener por ID)
+// http://localhost:9081/api/v1/notificaciones/1
+
+// POST (Enviar Notificación)
+// http://localhost:9081/api/v1/notificaciones
+// {
+//   "clienteId": 1,
+//   "mensaje": "Su orden de trabajo #3 ha sido procesada con éxito."
+// }
+

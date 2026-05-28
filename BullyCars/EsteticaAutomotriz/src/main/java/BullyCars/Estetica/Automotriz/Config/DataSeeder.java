@@ -30,3 +30,18 @@ public class DataSeeder implements CommandLineRunner {
         }
     }
 }
+
+// GET (Listar Servicios)
+// http://localhost:9081/api/v1/estetica
+
+// GET (Obtener por ID)
+// http://localhost:9081/api/v1/estetica/1
+
+// POST (Crear Servicio de Estética)
+// http://localhost:9081/api/v1/estetica
+// {
+//   "nombre": "Pulido de Ópticas",
+//   "descripcion": "Eliminación de opacidad y aplicación de sellador UV",
+//   "precio": 25000.00
+// }
+

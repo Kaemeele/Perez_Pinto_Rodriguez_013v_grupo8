@@ -30,3 +30,18 @@ public class DataSeeder implements CommandLineRunner {
         }
     }
 }
+
+// GET (Listar Repuestos)
+// http://localhost:9081/api/v1/inventario
+
+// GET (Obtener por ID)
+// http://localhost:9081/api/v1/inventario/1
+
+// POST (Crear Repuesto)
+// http://localhost:9081/api/v1/inventario
+// {
+//   "nombre": "Aceite Sintético Mobil 1 5W30",
+//   "stock": 30,
+//   "precio": 35000.00
+// }
+

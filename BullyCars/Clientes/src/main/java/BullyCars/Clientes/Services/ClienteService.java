@@ -1,9 +1,11 @@
 package BullyCars.Clientes.Services;
 
 import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
 import BullyCars.Clientes.Models.Cliente;
 import BullyCars.Clientes.Repositories.ClienteRepository;
 import BullyCars.Clientes.Security.JwtUtil;
@@ -20,7 +22,6 @@ public class ClienteService {
     @Autowired
     private JwtUtil jwtUtil;
 
-    // Registra un nuevo cliente, encripta su contrasena y le asigna el rol de cliente
     public Cliente registrarCliente(Cliente cliente) {
         String claveEncriptada = passwordEncoder.encode(cliente.getPassword());
         cliente.setPassword(claveEncriptada);

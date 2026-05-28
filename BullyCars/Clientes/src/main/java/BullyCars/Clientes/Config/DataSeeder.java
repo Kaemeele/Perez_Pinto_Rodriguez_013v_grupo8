@@ -31,3 +31,21 @@ public class DataSeeder implements CommandLineRunner {
         }
     }
 }
+
+// GET (Obtener por ID)
+// http://localhost:9081/api/v1/clientes/1
+
+// POST (Registrar Cliente Nuevo)
+// http://localhost:9081/api/v1/clientes/registrar
+// {
+//   "nombre": "Juan Pérez",
+//   "email": "juan.perez@email.com",
+//   "password": "claveSegura123"
+// }
+
+// POST (Login)
+// http://localhost:9081/api/v1/clientes/login
+// {
+//   "email": "admin@bullycars.cl",
+//   "password": "qwerty123"
+// }
