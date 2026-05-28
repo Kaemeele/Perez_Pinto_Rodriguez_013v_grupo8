@@ -1,15 +1,18 @@
 package BullyCars.Citas.Services;
 
-import java.util.Optional;
-
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import BullyCars.Citas.Exceptions.CitaInvalidaException;
+import BullyCars.Citas.Exceptions.CitaYaProgramadaException;
+import BullyCars.Citas.Exceptions.FechaPasadaException;
 import BullyCars.Citas.Models.Cita;
-import BullyCars.Citas.Repositories.CitaRepository;
 import BullyCars.Citas.Proxy.ClienteProxy;
-import BullyCars.Citas.Exceptions.*;
+import BullyCars.Citas.Repositories.CitaRepository;
 
 @Service
 public class CitaService {

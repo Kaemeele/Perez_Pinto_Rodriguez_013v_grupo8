@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import BullyCars.Clientes.Models.Cliente;
 import BullyCars.Clientes.Repositories.ClienteRepository;
 import BullyCars.Clientes.Security.JwtUtil;
-import jakarta.annotation.PostConstruct;
 
 @Service
 public class ClienteService {
@@ -21,19 +20,7 @@ public class ClienteService {
     @Autowired
     private JwtUtil jwtUtil;
 
-    @PostConstruct
-    public void initAdmin() {
-        if (repository.count() == 0) {
-            Cliente admin = new Cliente();
-                admin.setNombre("Administrador Maestro");
-            admin.setEmail("admin@bullycars.cl");
-            admin.setPassword(passwordEncoder.encode("qwerty123"));
-            admin.setRol("ROLE_ADMIN"); 
-            repository.save(admin);
-            System.out.println(">>> Administrador inicial creado correctamente.");
-        }
-    }
-
+    // Registra un nuevo cliente, encripta su contrasena y le asigna el rol de cliente
     public Cliente registrarCliente(Cliente cliente) {
         String claveEncriptada = passwordEncoder.encode(cliente.getPassword());
         cliente.setPassword(claveEncriptada);
