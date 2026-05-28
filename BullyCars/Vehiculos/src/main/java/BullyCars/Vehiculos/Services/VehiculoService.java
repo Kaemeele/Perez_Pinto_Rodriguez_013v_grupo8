@@ -26,4 +26,11 @@ public class VehiculoService {
     public Vehiculo guardar(Vehiculo vehiculo) {
         return repository.save(vehiculo);
     }
-}
+
+    public void eliminar(Long id) {
+        if (!repository.existsById(id)) {
+            throw new BullyCars.Vehiculos.Exceptions.VehiculoNoEncontradoException("Vehículo no encontrado con ID: " + id);
+        }
+        repository.deleteById(id);
+    }
+}

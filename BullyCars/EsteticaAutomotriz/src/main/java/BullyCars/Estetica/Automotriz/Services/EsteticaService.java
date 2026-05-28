@@ -18,4 +18,11 @@ public class EsteticaService {
     public ServicioEstetica guardar(ServicioEstetica s) { return repo.save(s); }
 
     public Optional<ServicioEstetica> obtenerPorId(Long id) { return repo.findById(id); }
-}
+
+    public void eliminar(Long id) {
+        if (!repo.existsById(id)) {
+            throw new RuntimeException("Servicio de estética no encontrado con ID: " + id);
+        }
+        repo.deleteById(id);
+    }
+}

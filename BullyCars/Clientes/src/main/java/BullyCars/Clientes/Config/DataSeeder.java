@@ -49,3 +49,6 @@ public class DataSeeder implements CommandLineRunner {
 //   "email": "admin@bullycars.cl",
 //   "password": "qwerty123"
 // }
+
+// DELETE (Eliminar por ID)
+// http://localhost:9081/api/v1/clientes/1

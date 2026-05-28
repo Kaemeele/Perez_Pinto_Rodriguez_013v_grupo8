@@ -48,3 +48,7 @@ public class DataSeeder implements CommandLineRunner {
 //   "anio": 2021
 // }
 
+// DELETE (Eliminar por ID)
+// http://localhost:9081/api/v1/vehiculos/1
+
+

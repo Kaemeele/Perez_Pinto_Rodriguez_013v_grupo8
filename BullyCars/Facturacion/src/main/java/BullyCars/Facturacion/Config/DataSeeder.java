@@ -42,3 +42,7 @@ public class DataSeeder implements CommandLineRunner {
 //   "total": 55000.00
 // }
 
+// DELETE (Eliminar por ID)
+// http://localhost:9081/api/v1/facturacion/1
+
+

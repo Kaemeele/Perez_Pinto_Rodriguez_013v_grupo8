@@ -19,4 +19,11 @@ public class ResenaService {
     public Resena guardar(Resena resena) { return repository.save(resena); }
 
     public Optional<Resena> obtenerPorId(Long id) { return repository.findById(id); }
-}
+
+    public void eliminar(Long id) {
+        if (!repository.existsById(id)) {
+            throw new RuntimeException("Reseña no encontrada con ID: " + id);
+        }
+        repository.deleteById(id);
+    }
+}

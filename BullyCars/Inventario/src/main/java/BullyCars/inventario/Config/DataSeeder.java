@@ -45,3 +45,7 @@ public class DataSeeder implements CommandLineRunner {
 //   "precio": 35000.00
 // }
 
+// DELETE (Eliminar por ID)
+// http://localhost:9081/api/v1/inventario/1
+
+

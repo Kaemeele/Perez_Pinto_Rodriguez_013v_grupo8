@@ -23,4 +23,11 @@ public class InventarioService {
     }
 
     public Optional<Repuesto> obtenerPorId(Long id) { return repository.findById(id); }
-}
+
+    public void eliminar(Long id) {
+        if (!repository.existsById(id)) {
+            throw new RuntimeException("Repuesto no encontrado con ID: " + id);
+        }
+        repository.deleteById(id);
+    }
+}

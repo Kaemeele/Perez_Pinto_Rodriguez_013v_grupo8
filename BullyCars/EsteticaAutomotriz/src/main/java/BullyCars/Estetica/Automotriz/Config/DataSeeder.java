@@ -45,3 +45,7 @@ public class DataSeeder implements CommandLineRunner {
 //   "precio": 25000.00
 // }
 
+// DELETE (Eliminar por ID)
+// http://localhost:9081/api/v1/estetica/1
+
+

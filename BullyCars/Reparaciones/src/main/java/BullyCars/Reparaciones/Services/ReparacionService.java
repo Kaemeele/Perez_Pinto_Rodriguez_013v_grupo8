@@ -22,4 +22,11 @@ public class ReparacionService {
     }
 
     public Optional<OrdenTrabajo> obtenerPorId(Long id) { return repository.findById(id); }
-}
+
+    public void eliminar(Long id) {
+        if (!repository.existsById(id)) {
+            throw new RuntimeException("Orden de trabajo no encontrada con ID: " + id);
+        }
+        repository.deleteById(id);
+    }
+}

@@ -42,3 +42,7 @@ public class DataSeeder implements CommandLineRunner {
 //   "mensaje": "Su orden de trabajo #3 ha sido procesada con éxito."
 // }
 
+// DELETE (Eliminar por ID)
+// http://localhost:9081/api/v1/notificaciones/1
+
+

@@ -45,3 +45,7 @@ public class DataSeeder implements CommandLineRunner {
 //   "categoriaInsumos": "Accesorios Deportivos y Tuning"
 // }
 
+// DELETE (Eliminar por ID)
+// http://localhost:9081/api/v1/proveedores/1
+
+

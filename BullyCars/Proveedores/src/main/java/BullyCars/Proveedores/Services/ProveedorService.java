@@ -19,4 +19,11 @@ public class ProveedorService {
     public Proveedor guardar(Proveedor p) { return repository.save(p); }
 
     public Optional<Proveedor> obtenerPorId(Long id) { return repository.findById(id); }
-}
+
+    public void eliminar(Long id) {
+        if (!repository.existsById(id)) {
+            throw new RuntimeException("Proveedor no encontrado con ID: " + id);
+        }
+        repository.deleteById(id);
+    }
+}

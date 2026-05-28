@@ -50,3 +50,7 @@ public class DataSeeder implements CommandLineRunner {
 //   "vehiculoId": 1
 // }
 
+// DELETE (Eliminar por ID)
+// http://localhost:9081/api/v1/citas/1
+
+

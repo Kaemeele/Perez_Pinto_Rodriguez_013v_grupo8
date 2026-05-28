@@ -45,3 +45,7 @@ public class DataSeeder implements CommandLineRunner {
 //   "comentario": "El servicio fue excelente, pero tardaron media hora más de lo programado."
 // }
 
+// DELETE (Eliminar por ID)
+// http://localhost:9081/api/v1/resenas/1
+
+

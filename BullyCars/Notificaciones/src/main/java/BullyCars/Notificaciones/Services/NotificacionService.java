@@ -18,4 +18,11 @@ public class NotificacionService {
     public List<Notificacion> verTodas() { return repo.findAll(); }
 
     public Optional<Notificacion> obtenerPorId(Long id) { return repo.findById(id); }
-}
+
+    public void eliminar(Long id) {
+        if (!repo.existsById(id)) {
+            throw new RuntimeException("Notificación no encontrada con ID: " + id);
+        }
+        repo.deleteById(id);
+    }
+}

@@ -18,4 +18,12 @@ public class FacturacionService {
     public List<Factura> historial() { return repo.findAll(); }
 
     public Optional<Factura> obtenerPorId(Long id) { return repo.findById(id); }
+
+    public void eliminar(Long id) {
+        if (!repo.existsById(id)) {
+            throw new RuntimeException("Factura no encontrada con ID: " + id);
+        }
+        repo.deleteById(id);
+    }
 }
+

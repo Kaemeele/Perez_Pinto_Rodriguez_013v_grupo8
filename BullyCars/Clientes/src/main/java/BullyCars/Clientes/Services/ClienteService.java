@@ -53,4 +53,11 @@ public class ClienteService {
         return repository.findByEmail(email)
                 .orElseThrow(() -> new BullyCars.Clientes.Exceptions.ClienteNoEncontradoException("Cliente con correo " + email + " no encontrado."));
     }
-}
+
+    public void eliminar(Long id) {
+        if (!repository.existsById(id)) {
+            throw new BullyCars.Clientes.Exceptions.ClienteNoEncontradoException("Cliente con ID " + id + " no encontrado.");
+        }
+        repository.deleteById(id);
+    }
+}

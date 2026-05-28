@@ -48,3 +48,7 @@ public class DataSeeder implements CommandLineRunner {
 //   "mecanicoAsignado": "Carlos Mecánico"
 // }
 
+// DELETE (Eliminar por ID)
+// http://localhost:9081/api/v1/reparaciones/1
+
+
