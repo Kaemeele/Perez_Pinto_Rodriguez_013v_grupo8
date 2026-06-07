@@ -35,4 +35,7 @@ public class Cliente {
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String rol; 
+
+    @jakarta.persistence.OneToMany(mappedBy = "cliente", cascade = jakarta.persistence.CascadeType.ALL, orphanRemoval = true)
+    private java.util.List<DireccionCliente> direcciones;
 }

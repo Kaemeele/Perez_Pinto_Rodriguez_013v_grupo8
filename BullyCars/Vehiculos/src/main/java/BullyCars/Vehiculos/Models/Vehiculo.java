@@ -21,4 +21,6 @@ public class Vehiculo {
     private String modelo;
     private int anio;
 
+    @jakarta.persistence.OneToMany(mappedBy = "vehiculo", cascade = jakarta.persistence.CascadeType.ALL, orphanRemoval = true)
+    private java.util.List<HistorialKilometraje> historialKilometraje;
 }

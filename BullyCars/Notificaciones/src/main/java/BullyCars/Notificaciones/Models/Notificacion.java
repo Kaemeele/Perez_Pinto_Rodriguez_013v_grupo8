@@ -19,4 +19,7 @@ public class Notificacion {
 
     @PrePersist
     public void prePersist() { this.fechaEnvio = LocalDateTime.now(); }
+
+    @OneToMany(mappedBy = "notificacion", cascade = CascadeType.ALL, orphanRemoval = true)
+    private java.util.List<LogEnvio> logs;
 }

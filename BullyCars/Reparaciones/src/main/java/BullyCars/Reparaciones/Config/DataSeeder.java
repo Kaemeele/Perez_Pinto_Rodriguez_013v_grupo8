@@ -5,7 +5,7 @@ import BullyCars.Reparaciones.Repositories.OrdenTrabajoRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-@Component
+// @Component
 public class DataSeeder implements CommandLineRunner {
     private final OrdenTrabajoRepository ordenTrabajoRepository;
 

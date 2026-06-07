@@ -37,5 +37,29 @@ public class EsteticaController {
         service.eliminar(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping("/reservas")
+    public ResponseEntity<BullyCars.Estetica.Automotriz.Models.ReservaEstetica> crearReserva(@RequestBody BullyCars.Estetica.Automotriz.Models.ReservaEstetica r) {
+        return new ResponseEntity<>(service.crearReserva(r), HttpStatus.CREATED);
+    }
+
+    @GetMapping("/reservas/{id}")
+    public ResponseEntity<BullyCars.Estetica.Automotriz.Models.ReservaEstetica> obtenerReservaPorId(@PathVariable Long id) {
+        return service.obtenerReservaPorId(id)
+            .map(ResponseEntity::ok)
+            .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/reservas/cita/{citaId}")
+    public ResponseEntity<BullyCars.Estetica.Automotriz.Models.ReservaEstetica> obtenerReservaPorCitaId(@PathVariable Long citaId) {
+        return service.obtenerReservaPorCitaId(citaId)
+            .map(ResponseEntity::ok)
+            .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    @PutMapping("/reservas/{id}/estado")
+    public ResponseEntity<BullyCars.Estetica.Automotriz.Models.ReservaEstetica> actualizarEstadoReserva(@PathVariable Long id, @RequestParam String estado) {
+        return ResponseEntity.ok(service.actualizarEstadoReserva(id, estado));
+    }
 }
 

@@ -23,4 +23,11 @@ public class Cita {
     
     private Long clienteId;
     private Long vehiculoId;
+    private Boolean confirmado = false;
+
+    private String tipoServicio = "REPARACION"; // e.g. REPARACION, ESTETICA
+    private Long servicioId; // refers to ServicioEstetica catalog if tipoServicio is ESTETICA
+
+    @jakarta.persistence.OneToMany(mappedBy = "cita", cascade = jakarta.persistence.CascadeType.ALL, orphanRemoval = true)
+    private java.util.List<EstadoCitaHistorial> historialEstados;
 }

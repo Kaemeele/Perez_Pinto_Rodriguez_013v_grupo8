@@ -37,5 +37,10 @@ public class FacturacionController {
         service.eliminar(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PostMapping("/cita/{citaId}")
+    public ResponseEntity<Factura> generarFacturaDeCita(@PathVariable Long citaId) {
+        return new ResponseEntity<>(service.generarFacturaDeCita(citaId), HttpStatus.CREATED);
+    }
 }
 

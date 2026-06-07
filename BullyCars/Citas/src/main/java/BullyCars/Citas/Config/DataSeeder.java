@@ -1,13 +1,14 @@
 package BullyCars.Citas.Config;
 
-import BullyCars.Citas.Models.Cita;
-import BullyCars.Citas.Repositories.CitaRepository;
+import java.time.LocalDateTime;
+
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
+import BullyCars.Citas.Models.Cita;
+import BullyCars.Citas.Repositories.CitaRepository;
 
-@Component
+// @Component
 public class DataSeeder implements CommandLineRunner {
     private final CitaRepository citaRepository;
 

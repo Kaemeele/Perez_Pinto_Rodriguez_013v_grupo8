@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import BullyCars.Clientes.Models.Cliente;
 import BullyCars.Clientes.Repositories.ClienteRepository;
 
-@Component
+// @Component
 public class DataSeeder implements CommandLineRunner {
 
     private final ClienteRepository clienteRepository;

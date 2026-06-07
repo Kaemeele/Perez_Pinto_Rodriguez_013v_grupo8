@@ -18,4 +18,7 @@ public class Proveedor {
 
     private String contacto;
     private String categoriaInsumos; 
+
+    @OneToMany(mappedBy = "proveedor", cascade = CascadeType.ALL, orphanRemoval = true)
+    private java.util.List<InsumoProveedor> insumos;
 }

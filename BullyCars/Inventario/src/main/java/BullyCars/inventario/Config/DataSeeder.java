@@ -5,7 +5,7 @@ import BullyCars.inventario.Repositories.RepuestoRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-@Component
+// @Component
 public class DataSeeder implements CommandLineRunner {
     private final RepuestoRepository repuestoRepository;
 

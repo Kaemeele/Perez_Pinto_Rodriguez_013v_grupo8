@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import BullyCars.Notificaciones.Models.Notificacion;
+import BullyCars.Notificaciones.Models.LogEnvio;
 import BullyCars.Notificaciones.Repositories.NotificacionRepository;
 
 @Service
@@ -13,7 +14,21 @@ public class NotificacionService {
     
     @Autowired private NotificacionRepository repo;
 
-    public Notificacion registrar(Notificacion n) { return repo.save(n); }
+    @org.springframework.transaction.annotation.Transactional
+    public Notificacion registrar(Notificacion n) {
+        if (n.getLogs() == null) {
+            n.setLogs(new java.util.ArrayList<>());
+        }
+        
+        LogEnvio defaultLog = new LogEnvio();
+        defaultLog.setCanal("EMAIL");
+        defaultLog.setEstado("ENVIADO");
+        defaultLog.setFechaHora(java.time.LocalDateTime.now());
+        defaultLog.setNotificacion(n);
+        n.getLogs().add(defaultLog);
+
+        return repo.save(n);
+    }
 
     public List<Notificacion> verTodas() { return repo.findAll(); }
 

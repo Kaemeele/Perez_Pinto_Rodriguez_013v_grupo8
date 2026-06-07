@@ -39,4 +39,14 @@ public class InventarioController {
         service.eliminar(id);
         return ResponseEntity.noContent().build();
     }
+
+    @PutMapping("/{id}/descontar")
+    public ResponseEntity<Repuesto> descontarStock(@PathVariable Long id, @RequestParam Integer cantidad, @RequestParam(required = false) String descripcion) {
+        return ResponseEntity.ok(service.descontarStock(id, cantidad, descripcion));
+    }
+
+    @PutMapping("/{id}/agregar")
+    public ResponseEntity<Repuesto> agregarStock(@PathVariable Long id, @RequestParam Integer cantidad, @RequestParam(required = false) String descripcion) {
+        return ResponseEntity.ok(service.agregarStock(id, cantidad, descripcion));
+    }
 }

@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface OrdenTrabajoRepository extends JpaRepository<OrdenTrabajo, Long> {
+    java.util.Optional<OrdenTrabajo> findByCitaId(Long citaId);
 }

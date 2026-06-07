@@ -19,4 +19,10 @@ public class OrdenTrabajo {
     private String estado; 
     private Long vehiculoId; 
     private String mecanicoAsignado;
+    
+    private Long citaId;
+    private Double costoManoObra = 0.0;
+
+    @OneToMany(mappedBy = "ordenTrabajo", cascade = CascadeType.ALL, orphanRemoval = true)
+    private java.util.List<RepuestoUsado> repuestosUsados;
 }

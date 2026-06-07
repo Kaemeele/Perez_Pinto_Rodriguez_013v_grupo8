@@ -5,15 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import BullyCars.Reparaciones.Models.OrdenTrabajo;
+import BullyCars.Reparaciones.Models.RepuestoUsado;
 import BullyCars.Reparaciones.Services.ReparacionService;
 import jakarta.validation.Valid;
 
@@ -38,11 +33,32 @@ public class ReparacionController {
 
     @GetMapping("/{id}")
     public ResponseEntity<OrdenTrabajo> obtenerPorId(@PathVariable Long id) {
-        return service.listarOrdenes().stream()
-                .filter(o -> o.getId().equals(id))
-                .findFirst()
+        return service.obtenerPorId(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/cita/{citaId}")
+    public ResponseEntity<OrdenTrabajo> obtenerPorCitaId(@PathVariable Long citaId) {
+        return service.obtenerPorCitaId(citaId)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PostMapping("/{id}/repuestos")
+    public ResponseEntity<RepuestoUsado> agregarRepuesto(
+            @PathVariable Long id, 
+            @RequestParam Long repuestoId, 
+            @RequestParam Integer cantidad) {
+        return new ResponseEntity<>(service.agregarRepuesto(id, repuestoId, cantidad), HttpStatus.CREATED);
+    }
+
+    @PutMapping("/{id}/estado")
+    public ResponseEntity<OrdenTrabajo> actualizarEstadoYClave(
+            @PathVariable Long id, 
+            @RequestParam(required = false) String estado, 
+            @RequestParam(required = false) Double costoManoObra) {
+        return ResponseEntity.ok(service.actualizarEstadoYClave(id, estado, costoManoObra));
     }
 
     @DeleteMapping("/{id}")

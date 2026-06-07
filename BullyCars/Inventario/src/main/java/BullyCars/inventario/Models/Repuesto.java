@@ -14,4 +14,7 @@ public class Repuesto {
     private String nombre;
     private Integer stock;
     private Double precio;
+
+    @OneToMany(mappedBy = "repuesto", cascade = CascadeType.ALL, orphanRemoval = true)
+    private java.util.List<MovimientoInventario> movimientos;
 }

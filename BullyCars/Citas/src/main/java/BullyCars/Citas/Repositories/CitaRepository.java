@@ -10,4 +10,6 @@ import BullyCars.Citas.Models.Cita;
 
 @Repository
 public interface CitaRepository extends JpaRepository<Cita, Long> {
-Optional<Cita> findByVehiculoIdAndFechaHora(Long vehiculoId, LocalDateTime fechaHora);}
+    Optional<Cita> findByVehiculoIdAndFechaHora(Long vehiculoId, LocalDateTime fechaHora);
+    java.util.List<Cita> findByConfirmado(Boolean confirmado);
+}

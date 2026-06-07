@@ -24,4 +24,7 @@ public class Factura {
 
     @PrePersist
     public void prePersist() { this.fechaEmision = LocalDateTime.now(); }
+
+    @jakarta.persistence.OneToMany(mappedBy = "factura", cascade = jakarta.persistence.CascadeType.ALL, orphanRemoval = true)
+    private java.util.List<DetalleFactura> detalles;
 }
