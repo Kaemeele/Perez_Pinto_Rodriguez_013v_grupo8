@@ -6,8 +6,7 @@ services:
     ports:
       - "3310:3306"
     environment:
-      MYSQL_ROOT_PASSWORD: ""
-      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_ROOT_PASSWORD: "qwerty123"
     volumes:
       - mysql_data:/var/lib/mysql
       - ./init-db:/docker-entrypoint-initdb.d
@@ -79,8 +78,8 @@ services:
       - "9082:8082"
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/db_clientes?createDatabaseIfNotExist=true&serverTimezone=UTC
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: ""
+      SPRING_DATASOURCE_USERNAME: "Bully-cars"
+      SPRING_DATASOURCE_PASSWORD: "qwerty123"
       EUREKA_SERVER_URL: http://eureka-server:8761/eureka/
       KAFKA_SERVERS: kafka:29092
     depends_on:
@@ -99,8 +98,8 @@ services:
       - "9083:8083"
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/db_vehiculos?createDatabaseIfNotExist=true&serverTimezone=UTC
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: ""
+      SPRING_DATASOURCE_USERNAME: "Bully-cars"
+      SPRING_DATASOURCE_PASSWORD: "qwerty123"
       EUREKA_SERVER_URL: http://eureka-server:8761/eureka/
       KAFKA_SERVERS: kafka:29092
     depends_on:
@@ -119,8 +118,8 @@ services:
       - "9084:8084"
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/db_citas?createDatabaseIfNotExist=true&serverTimezone=UTC
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: ""
+      SPRING_DATASOURCE_USERNAME: "Bully-cars"
+      SPRING_DATASOURCE_PASSWORD: "qwerty123"
       EUREKA_SERVER_URL: http://eureka-server:8761/eureka/
       KAFKA_SERVERS: kafka:29092
     depends_on:
@@ -139,8 +138,8 @@ services:
       - "9085:8085"
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/db_inventario?createDatabaseIfNotExist=true&serverTimezone=UTC
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: ""
+      SPRING_DATASOURCE_USERNAME: "Bully-cars"
+      SPRING_DATASOURCE_PASSWORD: "qwerty123"
       EUREKA_SERVER_URL: http://eureka-server:8761/eureka/
       KAFKA_SERVERS: kafka:29092
     depends_on:
@@ -159,8 +158,8 @@ services:
       - "9086:8086"
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/db_reparaciones?createDatabaseIfNotExist=true&serverTimezone=UTC
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: ""
+      SPRING_DATASOURCE_USERNAME: "Bully-cars"
+      SPRING_DATASOURCE_PASSWORD: "qwerty123"
       EUREKA_SERVER_URL: http://eureka-server:8761/eureka/
       KAFKA_SERVERS: kafka:29092
     depends_on:
@@ -179,8 +178,8 @@ services:
       - "9087:8087"
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/db_estetica?createDatabaseIfNotExist=true&serverTimezone=UTC
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: ""
+      SPRING_DATASOURCE_USERNAME: "Bully-cars"
+      SPRING_DATASOURCE_PASSWORD: "qwerty123"
       EUREKA_SERVER_URL: http://eureka-server:8761/eureka/
       KAFKA_SERVERS: kafka:29092
     depends_on:
@@ -199,8 +198,8 @@ services:
       - "9088:8088"
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/db_facturacion?createDatabaseIfNotExist=true&serverTimezone=UTC
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: ""
+      SPRING_DATASOURCE_USERNAME: "Bully-cars"
+      SPRING_DATASOURCE_PASSWORD: "qwerty123"
       EUREKA_SERVER_URL: http://eureka-server:8761/eureka/
       KAFKA_SERVERS: kafka:29092
     depends_on:
@@ -219,8 +218,8 @@ services:
       - "9089:8089"
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/db_proveedores?createDatabaseIfNotExist=true&serverTimezone=UTC
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: ""
+      SPRING_DATASOURCE_USERNAME: "Bully-cars"
+      SPRING_DATASOURCE_PASSWORD: "qwerty123"
       EUREKA_SERVER_URL: http://eureka-server:8761/eureka/
       KAFKA_SERVERS: kafka:29092
     depends_on:
@@ -239,8 +238,8 @@ services:
       - "9090:8090"
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/db_notificaciones?createDatabaseIfNotExist=true&serverTimezone=UTC
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: ""
+      SPRING_DATASOURCE_USERNAME: "Bully-cars"
+      SPRING_DATASOURCE_PASSWORD: "qwerty123"
       EUREKA_SERVER_URL: http://eureka-server:8761/eureka/
       KAFKA_SERVERS: kafka:29092
     depends_on:
@@ -259,8 +258,8 @@ services:
       - "9091:8091"
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/db_resenas?createDatabaseIfNotExist=true&serverTimezone=UTC
-      SPRING_DATASOURCE_USERNAME: root
-      SPRING_DATASOURCE_PASSWORD: ""
+      SPRING_DATASOURCE_USERNAME: "Bully-cars"
+      SPRING_DATASOURCE_PASSWORD: "qwerty123"
       EUREKA_SERVER_URL: http://eureka-server:8761/eureka/
       KAFKA_SERVERS: kafka:29092
     depends_on:
