@@ -10,6 +10,9 @@ import BullyCars.Citas.Models.Cita;
 import BullyCars.Citas.Services.CitaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
@@ -21,19 +24,32 @@ public class CitaController {
     private CitaService citaService;
 
     @Operation(summary = "Obtener todas las citas")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Listado de citas obtenido con éxito")
+    })
     @GetMapping
     public ResponseEntity<List<Cita>> getAllCitas() {
         return ResponseEntity.ok(citaService.obtenerTodas());
     }
 
     @Operation(summary = "Crear nueva cita")
-    @ApiResponse(responseCode = "201", description = "Cita creada")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "201", description = "Cita creada exitosamente",
+            content = @Content(mediaType = "application/json", schema = @Schema(implementation = Cita.class))),
+        @ApiResponse(responseCode = "400", description = "Datos de entrada inválidos"),
+        @ApiResponse(responseCode = "409", description = "Conflicto: Vehículo ya tiene cita en esta fecha u horario pasado")
+    })
     @PostMapping
     public ResponseEntity<Cita> createCita(@RequestBody Cita cita) {
         return ResponseEntity.status(HttpStatus.CREATED).body(citaService.agendar(cita));
     }
 
     @Operation(summary = "Obtener cita por ID")
+    @ApiResponses(value = {
+        @ApiResponse(responseCode = "200", description = "Cita encontrada",
+            content = @Content(mediaType = "application/json", schema = @Schema(implementation = Cita.class))),
+        @ApiResponse(responseCode = "404", description = "Cita no encontrada")
+    })
     @GetMapping("/{id}")
     public ResponseEntity<Cita> obtenerPorId(@PathVariable Long id) {
         return citaService.obtenerPorId(id)

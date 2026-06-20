@@ -1,0 +1,27 @@
+server:
+  port: 8083
+
+spring:
+  application:
+    name: vehiculos-service
+  datasource:
+    url: ${SPRING_DATASOURCE_URL:jdbc:mysql://localhost:3310/db_vehiculos?createDatabaseIfNotExist=true&serverTimezone=UTC}
+    username: ${SPRING_DATASOURCE_USERNAME:Bully-cars}
+    password: ${SPRING_DATASOURCE_PASSWORD:qwerty123}
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+  sql:
+    init:
+      schema-locations: classpath:db/db_vehiculo.sql
+      data-locations: classpath:db/db_insertar_vehiculo.sql
+      mode: always
+  kafka:
+    bootstrap-servers: ${KAFKA_SERVERS:localhost:9092}
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${EUREKA_SERVER_URL:http://localhost:8761/eureka/}
