@@ -1,7 +1,7 @@
 package BullyCars.Citas.Services;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
 import java.time.LocalDateTime;
@@ -15,6 +15,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 
+import BullyCars.Citas.Exceptions.CitaInvalidaException;
 import BullyCars.Citas.Exceptions.CitaYaProgramadaException;
 import BullyCars.Citas.Exceptions.FechaPasadaException;
 import BullyCars.Citas.Models.Cita;
@@ -29,81 +30,90 @@ import BullyCars.Citas.Repositories.EstadoCitaHistorialRepository;
 @ExtendWith(MockitoExtension.class)
 public class CitaServiceTest {
 
-    @Mock private CitaRepository repository;
-    @Mock private EstadoCitaHistorialRepository historialRepository;
-    @Mock private ClienteProxy clienteProxy;
-    @Mock private VehiculoProxy vehiculoProxy;
-    @Mock private ReparacionProxy reparacionProxy;
-    @Mock private EsteticaProxy esteticaProxy;
+    @Mock
+    private CitaRepository repository;
+
+    @Mock
+    private EstadoCitaHistorialRepository historialRepository;
+
+    @Mock
+    private ClienteProxy clienteProxy;
+
+    @Mock
+    private VehiculoProxy vehiculoProxy;
+
+    @Mock
+    private ReparacionProxy reparacionProxy;
+
+    @Mock
+    private EsteticaProxy esteticaProxy;
 
     @InjectMocks
-    private CitaService service;
+    private CitaService citaService;
 
-    private Cita cita;
+    private Cita citaValida;
 
     @BeforeEach
     void setUp() {
-        cita = new Cita();
-        cita.setId(1L);
-        cita.setClienteId(10L);
-        cita.setVehiculoId(20L);
-        cita.setFechaHora(LocalDateTime.now().plusDays(2)); // Fecha futura
-        cita.setDescripcionProblema("Cambio de aceite");
-        cita.setTipoServicio("REPARACION");
+        citaValida = new Cita();
+        citaValida.setId(1L);
+        citaValida.setClienteId(10L);
+        citaValida.setVehiculoId(20L);
+        citaValida.setFechaHora(LocalDateTime.now().plusDays(1)); // Mañana
+        citaValida.setDescripcionProblema("Fallo en el motor");
+        citaValida.setTipoServicio("REPARACION");
     }
 
     @Test
-    void agendarCitaDeberiaGuardarCorrectamente() {
-        // Given
-        when(clienteProxy.obtenerClientePorId(10L)).thenReturn(ResponseEntity.ok(new Object()));
-        when(vehiculoProxy.obtenerVehiculoPorId(20L)).thenReturn(ResponseEntity.ok(new Object()));
-        when(repository.findByVehiculoIdAndFechaHora(20L, cita.getFechaHora())).thenReturn(Optional.empty());
-        when(repository.save(any(Cita.class))).thenAnswer(invocation -> invocation.getArgument(0));
+    void agendarCita_Exito() {
+        // Arrange
+        when(repository.findByVehiculoIdAndFechaHora(anyLong(), any(LocalDateTime.class)))
+                .thenReturn(Optional.empty());
+        
+        when(clienteProxy.obtenerClientePorId(10L)).thenReturn(ResponseEntity.ok().build());
+        when(vehiculoProxy.obtenerVehiculoPorId(20L)).thenReturn(ResponseEntity.ok().build());
+        
+        when(repository.save(any(Cita.class))).thenReturn(citaValida);
+        when(historialRepository.save(any(EstadoCitaHistorial.class))).thenReturn(new EstadoCitaHistorial());
 
-        // When
-        Cita result = service.agendar(cita);
+        // Act
+        Cita resultado = citaService.agendar(citaValida);
 
-        // Then
-        assertNotNull(result);
-        assertEquals("REPARACION", result.getTipoServicio());
-        verify(repository, times(1)).save(any(Cita.class));
+        // Assert
+        assertNotNull(resultado);
+        assertEquals(1L, resultado.getId());
+        verify(repository, times(1)).save(citaValida);
         verify(historialRepository, times(1)).save(any(EstadoCitaHistorial.class));
     }
 
     @Test
-    void agendarCitaDeberiaLanzarFechaPasadaException() {
-        // Given
-        cita.setFechaHora(LocalDateTime.now().minusDays(1)); // Fecha pasada
+    void agendarCita_FechaPasada_LanzaException() {
+        // Arrange
+        citaValida.setFechaHora(LocalDateTime.now().minusDays(1)); // Ayer
 
-        // When & Then
-        assertThrows(FechaPasadaException.class, () -> {
-            service.agendar(cita);
-        });
+        // Act & Assert
+        assertThrows(FechaPasadaException.class, () -> citaService.agendar(citaValida));
         verify(repository, never()).save(any(Cita.class));
     }
 
     @Test
-    void agendarCitaDeberiaLanzarCitaYaProgramadaException() {
-        // Given
-        when(repository.findByVehiculoIdAndFechaHora(20L, cita.getFechaHora())).thenReturn(Optional.of(new Cita()));
+    void agendarCita_YaProgramada_LanzaException() {
+        // Arrange
+        when(repository.findByVehiculoIdAndFechaHora(anyLong(), any(LocalDateTime.class)))
+                .thenReturn(Optional.of(citaValida));
 
-        // When & Then
-        assertThrows(CitaYaProgramadaException.class, () -> {
-            service.agendar(cita);
-        });
+        // Act & Assert
+        assertThrows(CitaYaProgramadaException.class, () -> citaService.agendar(citaValida));
         verify(repository, never()).save(any(Cita.class));
     }
 
     @Test
-    void agendarCitaDeberiaLanzarRuntimeExceptionSiClienteNoExiste() {
-        // Given
-        when(clienteProxy.obtenerClientePorId(10L)).thenReturn(ResponseEntity.status(404).body(null));
+    void agendarCita_DatosIncompletos_LanzaException() {
+        // Arrange
+        citaValida.setDescripcionProblema(""); // Dato incompleto
 
-        // When & Then
-        Exception exception = assertThrows(RuntimeException.class, () -> {
-            service.agendar(cita);
-        });
-        assertTrue(exception.getMessage().contains("Cliente con ID 10 no existe") || exception.getMessage().contains("No se pudo validar el cliente"));
+        // Act & Assert
+        assertThrows(CitaInvalidaException.class, () -> citaService.agendar(citaValida));
         verify(repository, never()).save(any(Cita.class));
     }
 }
