@@ -5,7 +5,7 @@ import BullyCars.Reparaciones.Repositories.OrdenTrabajoRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-@Component
+// @Component
 public class DataSeeder implements CommandLineRunner {
     private final OrdenTrabajoRepository ordenTrabajoRepository;
 
@@ -22,6 +22,33 @@ public class DataSeeder implements CommandLineRunner {
             ot.setVehiculoId(1L);
             ot.setMecanicoAsignado("Carlos Mecánico");
             ordenTrabajoRepository.save(ot);
+
+            OrdenTrabajo ot2 = new OrdenTrabajo();
+            ot2.setDescripcion("Instalación de Suspensión Ajustable Coilover Tein");
+            ot2.setEstado("En Proceso");
+            ot2.setVehiculoId(2L);
+            ot2.setMecanicoAsignado("Sebastián Tuner");
+            ordenTrabajoRepository.save(ot2);
         }
     }
 }
+
+// GET (Listar Órdenes de Trabajo)
+// http://localhost:9081/api/v1/reparaciones
+
+// GET (Obtener por ID)
+// http://localhost:9081/api/v1/reparaciones/1
+
+// POST (Crear Orden de Trabajo)
+// http://localhost:9081/api/v1/reparaciones
+// {
+//   "descripcion": "Ajuste de frenos traseros y purgado de líquido",
+//   "estado": "Pendiente",
+//   "vehiculoId": 1,
+//   "mecanicoAsignado": "Carlos Mecánico"
+// }
+
+// DELETE (Eliminar por ID)
+// http://localhost:9081/api/v1/reparaciones/1
+
+

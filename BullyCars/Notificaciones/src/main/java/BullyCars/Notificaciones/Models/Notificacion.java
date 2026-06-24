@@ -4,14 +4,11 @@ import jakarta.persistence.*;
 import lombok.Data;
 import java.time.LocalDateTime;
 
-/**
- * Entidad de persistencia (Modelo) que representa la tabla y estructura de datos en la base de datos.
- */
 @Entity
 @Table(name = "notificaciones")
 @Data
 public class Notificacion {
-    // Clave primaria identificadora de la entidad
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -22,4 +19,7 @@ public class Notificacion {
 
     @PrePersist
     public void prePersist() { this.fechaEnvio = LocalDateTime.now(); }
+
+    @OneToMany(mappedBy = "notificacion", cascade = CascadeType.ALL, orphanRemoval = true)
+    private java.util.List<LogEnvio> logs;
 }

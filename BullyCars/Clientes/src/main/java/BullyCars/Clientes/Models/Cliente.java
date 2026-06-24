@@ -12,14 +12,11 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
-/**
- * Entidad de persistencia (Modelo) que representa la tabla y estructura de datos en la base de datos.
- */
 @Entity
 @Table(name = "clientes")
 @Data
 public class Cliente {
-    // Clave primaria identificadora de la entidad
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -38,4 +35,7 @@ public class Cliente {
 
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private String rol; 
+
+    @jakarta.persistence.OneToMany(mappedBy = "cliente", cascade = jakarta.persistence.CascadeType.ALL, orphanRemoval = true)
+    private java.util.List<DireccionCliente> direcciones;
 }

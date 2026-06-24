@@ -5,7 +5,7 @@ import BullyCars.Facturacion.Repositories.FacturaRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-@Component
+// @Component
 public class DataSeeder implements CommandLineRunner {
     private final FacturaRepository facturaRepository;
 
@@ -20,6 +20,29 @@ public class DataSeeder implements CommandLineRunner {
             factura.setCitaId(1L);
             factura.setTotal(40000.00);
             facturaRepository.save(factura);
+
+            Factura factura2 = new Factura();
+            factura2.setCitaId(2L);
+            factura2.setTotal(325000.00);
+            facturaRepository.save(factura2);
         }
     }
 }
+
+// GET (Listar Facturas)
+// http://localhost:9081/api/v1/facturacion
+
+// GET (Obtener por ID)
+// http://localhost:9081/api/v1/facturacion/1
+
+// POST (Crear Factura)
+// http://localhost:9081/api/v1/facturacion
+// {
+//   "citaId": 1,
+//   "total": 55000.00
+// }
+
+// DELETE (Eliminar por ID)
+// http://localhost:9081/api/v1/facturacion/1
+
+

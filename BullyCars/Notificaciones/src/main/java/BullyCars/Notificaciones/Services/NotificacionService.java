@@ -1,22 +1,43 @@
 package BullyCars.Notificaciones.Services;
 
+import java.util.Optional;
+
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import BullyCars.Notificaciones.Models.Notificacion;
+import BullyCars.Notificaciones.Models.LogEnvio;
 import BullyCars.Notificaciones.Repositories.NotificacionRepository;
 
-/**
- * Servicio que encapsula la logica de negocio principal y las reglas operacionales.
- */
 @Service
 public class NotificacionService {
-    // Inyeccion automatica de dependencias de Spring
+    
     @Autowired private NotificacionRepository repo;
 
-    // Registra y envia una nueva notificacion en el sistema
-    public Notificacion registrar(Notificacion n) { return repo.save(n); }
+    @org.springframework.transaction.annotation.Transactional
+    public Notificacion registrar(Notificacion n) {
+        if (n.getLogs() == null) {
+            n.setLogs(new java.util.ArrayList<>());
+        }
+        
+        LogEnvio defaultLog = new LogEnvio();
+        defaultLog.setCanal("EMAIL");
+        defaultLog.setEstado("ENVIADO");
+        defaultLog.setFechaHora(java.time.LocalDateTime.now());
+        defaultLog.setNotificacion(n);
+        n.getLogs().add(defaultLog);
 
-    // Obtiene la lista completa de todas las notificaciones registradas
+        return repo.save(n);
+    }
+
     public List<Notificacion> verTodas() { return repo.findAll(); }
-}
+
+    public Optional<Notificacion> obtenerPorId(Long id) { return repo.findById(id); }
+
+    public void eliminar(Long id) {
+        if (!repo.existsById(id)) {
+            throw new RuntimeException("Notificación no encontrada con ID: " + id);
+        }
+        repo.deleteById(id);
+    }
+}

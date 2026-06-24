@@ -8,9 +8,6 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Interceptor global de excepciones para centralizar y unificar las respuestas de error.
- */
 @RestControllerAdvice
 public class GlobalClientesExceptionInterceptor {
 

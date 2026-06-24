@@ -8,9 +8,7 @@ import java.security.Key;
 import java.util.Date;
 
 @Component
-/**
- * Utilidad encargada de la creacion, firma y verificacion de tokens de seguridad JWT.
- */
+
 public class JwtUtil {
 
     private final Key secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
@@ -22,7 +20,7 @@ public class JwtUtil {
                 .setSubject(email)
                 .claim("rol", rol) 
                 .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + expirationTime)) // Fecha de expiracion
+                .setExpiration(new Date(System.currentTimeMillis() + expirationTime)) 
                 .signWith(secretKey, SignatureAlgorithm.HS256) 
                 .compact();
     }

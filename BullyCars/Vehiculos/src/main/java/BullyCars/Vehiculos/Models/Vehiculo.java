@@ -7,14 +7,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import lombok.Data;
 
-/**
- * Entidad de persistencia (Modelo) que representa la tabla y estructura de datos en la base de datos.
- */
 @Entity
 @Table(name = "vehiculos")
 @Data
 public class Vehiculo {
-    // Clave primaria identificadora de la entidad
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,4 +21,6 @@ public class Vehiculo {
     private String modelo;
     private int anio;
 
+    @jakarta.persistence.OneToMany(mappedBy = "vehiculo", cascade = jakarta.persistence.CascadeType.ALL, orphanRemoval = true)
+    private java.util.List<HistorialKilometraje> historialKilometraje;
 }
